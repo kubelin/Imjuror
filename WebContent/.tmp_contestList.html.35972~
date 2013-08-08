@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/plugins/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/plugins/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="css/plugins/docs.css" />
+<link rel="stylesheet" type="text/css" href="css/contestList.css" />
+<link rel="stylesheet" type="text/css" href="http://www.movyx.com/nyromodal/styles/nyroModal.css" />
+<link href='http://api.mobilis.co.kr/webfonts/css/?fontface=UnJamoDotumWeb' rel='stylesheet' type='text/css' />
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2 well" id="left_sidebar">
+				<div class="span12">
+				<div class="row-fluid">
+				<div class="span1 control-group">
+					<div class="controls">
+					<label class="checkbox"><input type="checkbox" class="check" id="contestStatus" checked="checked"></label>
+					</div>
+				</div>				
+				<div class="span11">
+				<ul class="nav nav-list">
+					<li class="nav-header">장르<label class="checkbox inline"></label></li>
+					<li class="contestList active" id="selectAll"><a href="#">모든장르</a></li>
+					<li class="contestList" id="1"><a href="#">장르1</a></li>
+					<li class="contestList" id="2"><a href="#">장르2</a></li>
+					<li class="contestList" id="3"><a href="#">장르3</a></li>
+					<li class="contestList" id="4"><a href="#">장르4</a></li>
+					<li class="nav-header">메뉴</li>
+					<li class="menu" id="upload"><a id="enroll" class="btn btn-success btn-large" >대결등록</a></li>
+				</ul>
+				</div>
+				</div>
+				</div>
+			</div>
+			
+			<div class="span10 row-fluid">
+				<div class="span12">
+					<div class="row-fluid" id="showList"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/plugins/jquery-1.7.2.min.js"></script>
+	<script src="js/plugins/jquery.nyroModal-1.5.5.min.js"></script>
+	<script src="js/plugins/magefister4jPaging.js"></script>
+	<script src="js/plugins/jquery.cookie.js"></script>
+	<script src="js/plugins/swfobject.js"></script>
+	<script src="js/contestList.js"></script>
+</body>
+</html>

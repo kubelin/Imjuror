@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <!DOCTYPE sqlMap 
+					PUBLIC "http://ibatis.apache.org/dtd/sql-map-2.dtd" 
+					"http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+						
+<sqlMap namespace="Comment">
+	<typeAlias alias="comment" type="spring.service.domain.CommentVO"/>
+	
+	<!-- : Comment의 경우 getComment경우가 없을듯함 -->
+	
+	<!-- getCommentList를 위한 ResultMap -->
+	<resultMap id="commentSelectMap" class="comment">
+		<result property="commentId" column="COMMENTID" jdbcType="INTEGER"/>
+		<result property="jurorComment" column="JURORCOMMENT" jdbcType="VARCHAR"/>
+		<result property="userId" column="USERID" jdbcType="VARCHAR"/>
+		<result property="fightNo" column="FIGHTNO" jdbcType="INTEGER"/>
+		<result property="regDate" column="REG_DATE" jdbcType="DATE"/>
+	</resultMap>
+	<!-- 
+	<parameterMap id="commentInsertParameterMap" class="comment">
+		<parameter property="commentId" jdbcType="INTEGER"/>
+		<parameter property="jurorComment" jdbcType="VARCHAR"/>
+		<parameter property="userId" jdbcType="VARCHAR"/>
+		<parameter property="fightNo" jdbcType="INTEGER"/>
+		<parameter property="regDate" jdbcType="DATE"/>
+	</parameterMap>
+	 -->
+	<!-- getCommentList for FightNo -->
+	
+	
+	<select id="getCommentList" parameterMap="string" resultMap="commentSelectMap">
+		SELECT
+		FIGHTNO, COMMENTID, JUROR_COMMENT, USERID, REG_DATE
+		JUROR_COMMENT, USERID, REG_DATE
+		FROM COMMENTS
+		WHERE FIGHTNO = #value#
+		WHERE fightno=#value#
+	</select>
+	
+	<!-- addComment  ParameterClass : commentVO
+		SEQ를 pk로 가지는 모든 릴레이션에 대해서 INSERT시 pk값을 리턴한다.  -->
+	
+	<insert id="addComment" parameterClass="comment">
+		<selectKey keyProperty="commentId" resultClass="int" type="pre">
+		SELECT COMMENTS_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INTO COMMENTS (COMMENTID, JURORCOMMENT, FIGHTNO, USERID)
+		VALUES(#commentId#,#jurorComment#,#fightNo#,#userId#)
+		INTO COMMENTS (COMMENTID, JURORCOMMENT, FIGHTNO, USERID, REG_DATE)
+		VALUES(?,?,?,?,?)
+	</insert>
+	
+	<!-- removeComment for Userid & CommentId
+		ParameterClass : fightNo AND CommentId
+		Parameter : fightNo와 CommentId 
+	--> 
+	
+	<delete id="removeComment" parameterClass="comment">
+		DELETE
+		FROM COMMENTS
+		WHERE userid = #userId# AND fightNo = #commentId#
+		WHERE userid = #value#
+	</delete>
+	
+
+</sqlMap>

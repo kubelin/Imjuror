@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Uploading Video Example </title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.21/themes/base/jquery-ui.css" type="text/css" media="all" />
+<link rel="stylesheet" href="./css/upload/ui.theme.css" type="text/css" media="all" />
+<link rel="stylesheet" href="./css/upload/user.css" type="text/css" media="all" />
+<script src="https://apis.google.com/js/client.js" type="text/javascript"></script>
+<script src="./js/upload/jquery.min.js" type="text/javascript"></script>
+<script src="./js/upload/jquery-ui.min.js" type="text/javascript"></script>
+<script src="./js/upload/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
+<script src="./js/upload/jquery-ui-i18n.min.js" type="text/javascript"></script>
+<script src="./js/upload/jquery.form.js"></script>
+<script src="./js/upload/raphael.js" type="text/javascript"></script>
+<script src="./js/upload/spinner.js" type="text/javascript"></script>
+<script src="./js/upload/uploadutil.js" type="text/javascript"></script>
+</head>
+
+<!-- 여기까지는 자바스크립트 코드 실행을 위한 자바스크립트 함수(function)와 css 초기화. -->
+<!-- 실제로 실행될 자바스크립트 코드는 <body>태그 아래 부분에 선언하였으므로 주의 요망 -->
+
+<body>
+<!-- 이 시점에서  form태그를 dialog창으로 바꿀 자바스크립트 실행.-->
+
+<!-- dialog창에 들어갈 form태그를 선언하고 각 요소를 div태그를 사용하여 나누어 놓음. -->
+<!-- uploaddialog.js가 실행되지 않을 경우 이 페이지는 그냥 평범한 폼 태그로 이루어진 페이지임. -->
+<div class="demo">
+
+<div id="dialog-form" title="동영상 업로드">
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">직접 업로드</a></li>
+			<li><a href="#tabs-2">동영상 링크</a></li>
+		</ul>
+		<div id="tabs-1">
+			<p class="validateTips">동영상 업로드에 필요한 정보를 입력해 주세요.</p>
+			<form id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
+			<fieldset>
+				<div id="title-contain" class="title-contain">		
+					<label for="title">제목</label>
+					<input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all" />
+				</div>
+				<div id="description-contain" class="description-contain">
+					<label for="description">설명</label>
+					<textarea name="description" id="description" rows="5" class="text ui-widget-content ui-corner-all"></textarea>
+				</div>
+				<div id="category-contain" class="category-contain">
+					<label for="category">카테고리</label>
+					<!-- <input type="text" name="category" id="category" value="" class="text ui-widget-content ui-corner-all" /> -->
+					<SELECT id="category" class="text ui-widget-content ui-corner-all">
+		   				<OPTION SELECTED>카테고리 선택</OPTION>
+		   				<OPTION value="music">음악</OPTION>
+		   				<OPTION value="entertainment">엔터테인먼트</OPTION>
+		   				<OPTION value="sports">스포츠</OPTION>
+		   				<OPTION value="videos">기타</OPTION>
+		  			</SELECT>		
+				</div>
+			</fieldset>
+			</form>
+			<form id="fileUploadForm" method ="post" enctype="multipart/form-data">		
+				<div id="file-contain">
+					<label for="upload">동영상 업로드 경로</label>
+					<input id="fileUpload" type="file" name="fileUpload" class="text ui-widget-content ui-corner-all"/>
+				</div>
+			</form>
+			<hr id="underline">
+				<div id="tab1-contain" class="tab1-contain">
+					<button id="tab1upload">동영상 업로드</button>
+					<button id="tab1cancel">취소</button>
+				</div>
+		</div>
+		<div id="tabs-2">
+			<p class="validateTips">올릴 동영상을 선택해 주세요.</p>
+			<form id="uploadForm2" name="uploadForm2" method="post" enctype="multipart/form-data">
+			<fieldset>
+				<div id="tabs-2-insert">
+						
+				</div>
+			</fieldset>
+			</form>
+			<hr id="underline2">
+			<div id="tab2-contain" class="tab1-contain">
+				<button id="tab2upload">동영상 업로드</button>
+				<button id="tab2cancel">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <button id="upload-video">동영상 업로드</button> -->
+
+<div id="uploading" title="동영상 업로드 중...">
+	<div id="progress"></div>
+</div>
+
+</div><!-- End -->
+
+
+<script src="./js/upload/uploaddialog.js" type="text/javascript"></script>
+
+</body>
+</html>

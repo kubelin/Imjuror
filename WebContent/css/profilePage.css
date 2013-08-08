@@ -1,0 +1,200 @@
+﻿@charset "utf-8";
+#profile-wrap{
+	width:900px;
+	min-height:660px;
+	
+	margin:0;
+	padding:0;
+	
+	margin-top:0px;
+	margin-right:auto;
+	margin-left:auto;
+	
+	padding:30px;
+	
+	font-family:'맑은 고딕';
+	color:black;
+}
+#profile-header{
+	width:900px;
+	vertical-align: baseline;
+	outline: none;
+	text-decoration: none;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	
+	color: #e9e9e9;
+	border: solid 1px #555;
+	background: #6e6e6e;
+	background: -webkit-gradient(linear, left top, left bottom, from(#888), to(#575757));
+	background: -moz-linear-gradient(top,  #888,  #575757);
+	DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#575757');
+}
+#profile-header h1{font-size:16px;color: #d7d7d7;margin-left:10px;}
+
+#profile-content{
+	float:left;
+	width:900px;
+	padding:0;
+	padding-bottom:60px;
+	
+	min-height:280px;
+	
+	vertical-align: baseline;
+	outline: none;
+	text-decoration: none;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	
+	color: #e9e9e9;
+	border: solid 1px #555;
+	background: #6e6e6e;
+	background: -webkit-gradient(linear, left top, left bottom, from(#888), to(#575757));
+	background: -moz-linear-gradient(top,  #888,  #575757);
+	DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#575757');
+	
+}
+#uploadedVideo_offed{
+	float:right;
+	width:346px;
+	height:100%;
+	min-height:600px;
+	color: #e9e9e9;
+	border: solid 1px #555;
+	background: #666;
+	
+}
+#userInfo-area{
+	float:left;
+	width:650px;
+	padding:0;
+	
+	min-height:600px;
+	
+	vertical-align: baseline;
+	outline: none;
+	text-decoration: none;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	
+	color: #e9e9e9;
+	border: solid 1px #555;
+	background: #6e6e6e;
+	background: -webkit-gradient(linear, left top, left bottom, from(#888), to(#575757));
+	background: -moz-linear-gradient(top,  #888,  #575757);
+	DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#575757');
+	
+}
+.user-bar{
+	clear:both;
+	margin:0;
+	margin-top:20px;
+	margin-right:auto;
+	margin-left:auto;
+	
+	width:860px;
+	height:182px;
+	padding:3px;
+	
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	
+	background: #D5D5D5d;
+	background: -webkit-gradient(linear, left top, left bottom, from(#dcdcdc), to(#D5D5D5));
+	background: -moz-linear-gradient(top,  #dcdcdc,  #D5D5D5);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#dcdcdc', endColorstr='#D5D5D5');
+		
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.user-bar .profile-img{
+	height:180px;
+	width:135px;
+	
+	float:left;
+	margin-left:20px;
+	margin-top:20px;
+	
+	border:8px solid #FFF;
+}
+.user-bar:hover{
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+	
+}
+
+#uploadedVideo{cursor:pointer;}
+
+
+
+
+.first-templete{height:240px;}
+
+.userInfo{
+	float:left;
+	width:300px;
+	
+	color: #444;
+	overflow:hidden;
+	padding:20px;
+	padding-top:20px;
+			
+	text-decoration: none;
+	line-height:170%;
+	font-size:16px;
+	
+}
+
+.video-img{
+	width:180px;
+	
+	float:left;
+	margin-left:20px;
+	margin-top:20px;
+	
+	border:1px solid #888;
+}
+.vs{
+	float:left;
+	margin-top:72px;
+	margin-left:13px;
+	font:35px bold;
+}
+.fightInfo p{width:330px;text-align:center;}
+.fightInfo p.subTitle{width:330px;text-align:center;font-size:20px;font-weight:bold;margin-top:10px;}
+
+.selfIntroductionForm{cols="100"; rows="10";}/*적용안됨*/
+.profile-modify{float:right;margin-right:40px;}
+.modify-form input{}
+
+.viewMoreButton{	
+	
+}
+.viewMoreButton .viewMore{
+	display:block;
+	float:right;
+	margin:0;
+	margin-top:20px;
+	margin-right:auto;
+	margin-left:auto;
+	
+}
+
+
+

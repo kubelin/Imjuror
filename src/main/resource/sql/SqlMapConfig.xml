@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig 
+				PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" 
+				"http://ibatis.apache.org/dtd/sql-map-config-2.dtd" >
+				
+<!--  SqlMapConfig.xml :: iBATIS Framework MetaData -->
+<sqlMapConfig>
+	
+	<settings	useStatementNamespaces="true"	
+						lazyLoadingEnabled="true"
+						cacheModelsEnabled="true"
+  						enhancementEnabled="true"
+  						maxRequests="32"	
+  						maxSessions="8"	
+  						maxTransactions="2" />
+
+	 <!-- SQL Definition :: file include -->
+	 <sqlMap resource="sql/fightservice2-mapping-sql.xml"/>
+	 <sqlMap resource="sql/fightservice-mapping-sql.xml"/>
+	 <sqlMap resource="sql/jurorservice-mapping-sql.xml"/>
+	 <!-- <sqlMap resource="sql/comment-mapping-sql.xml"/> -->
+	 
+</sqlMapConfig>

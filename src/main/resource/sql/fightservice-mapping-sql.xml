@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "http://ibatis.apache.org/dtd/sql-map-2.dtd"
+		"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+		
+<sqlMap namespace="Fight">
+
+	<typeAlias alias="fight" 		type="spring.service.domain.FightVO" />
+	<typeAlias alias="artistScore" 	type="spring.service.domain.ArtistScoreVO" />
+	<typeAlias alias="artist" 		type="spring.service.domain.ArtistVO" />
+	<typeAlias alias="fightComment" type="spring.service.domain.FightCommentVO" />
+	<typeAlias alias="getFight" 	type="spring.service.domain.FightInfoVO" />
+	<typeAlias alias="fightParam"	type="spring.service.domain.FightParamVO"/>
+	<typeAlias alias="artistParam"	type="spring.service.domain.ArtistParamVO"/>
+	<typeAlias alias="artistJuror"	type="spring.service.domain.ArtistJurorVO"/>
+
+<!-- Fight는 Artist와 Juror이 조인되어야 하므로 Artist와 Fight를 함께 처리하자. -->
+ 
+	<!-- getFightList 용 -->
+	<resultMap id="fightSelectMap" class="fight">
+		<result property="fightNo"			column="FIGHTNO"		jdbcType="INTEGER" />
+		<result property="title"	    	column="TITLE"			jdbcType="VARCHAR" />
+		<result property="content"	    	column="CONTENT"		jdbcType="VARCHAR" />
+		<result property="genreNo"			column="GENRENO"		jdbcType="VARCHAR" />
+		<result property="startDate"		column="START_DATE"		jdbcType="DATE" />
+		<result property="endDate"			column="END_DATE"		jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- getArtistJurorList용 -->
+	<resultMap id="artistJurorSelectMap" class="artistJuror" >
+		<result property="fightNo" 			column="FIGHTNO" 		jdbcType="INTEGER"/>
+		<result property="userId" 			column="USERID" 		jdbcType="VARCHAR"/>
+		<result property="video"			column="VIDEO"			jdbcType="VARCHAR"/>
+		<result property="artistComment" 	column="ARTIST_COMMENT" jdbcType="VARCHAR"/>
+		<result property="videoSequence" 	column="VIDEO_SEQUENCE" jdbcType="INTEGER"/>
+		<result property="battleResult" 	column="BATTLE_RESULT"	jdbcType="VARCHAR"/>
+		<result property="nickName" 		column="NICKNAME"		jdbcType="VARCHAR"/>
+		<result property="link" 			column="LINK" 			jdbcType="VARCHAR"/>
+	</resultMap>
+	<!-- getfightList 가져오기  변경해야함.
+	<insert id="addArtist" parameterClass="artist">
+		INSERT INTO ARTIST(artistcomment,userid,movie,score)
+		VALUES(#artistCommant#,#userId#,#movie#,#score#)
+	</insert>
+	 -->
+	 
+	 <!-- getFightList 
+	 <select id="getFightList" parameterClass="fightParam" >
+	 SELECT
+	 fightno, title, genre, content, startdate,enddate 
+	 FROM fight
+	 WHERE genre = #genre# AND 
+	 
+	 </select>-->
+	 
+	 
+	 
+	 
+ 	<!-- FIGHT값을 생성하고 PK값을 리턴합니다.  -->
+	<insert id="addFight" parameterClass="fight">
+		<selectKey resultClass="int" type="pre" keyProperty="fightNo">
+			SELECT FIGHT_SEQ.NextVal as fightNo from DUAL
+		</selectKey>	
+		INSERT INTO FIGHT(FIGHTNO,TITLE,GENRENO,CONTENT,START_DATE,END_DATE,REG_DATE)
+		VALUES(#fightNo#,#title#,#genreNo#,#content#,sysdate,sysdate,sysdate)
+	</insert>
+	 
+	 <!-- FIGHT 지우기  -->
+	 <delete id="delFight" parameterClass="int">
+		DELETE FROM FIGHT
+		WHERE FIGHTNO LIKE #value# 
+	</delete>
+	
+	<!-- 동영상 올리기  -->
+	<insert id="addArtist" parameterClass="artist">
+		INSERT INTO 
+		ARTIST(FIGHTNO, USERID, VIDEO, ARTISTCOMMENT, VIDEO_SEQUENCE)
+		VALUES(#fightNo#, #userId#, #video#, #artistComment#, #videoSequence#)
+	</insert>
+
+	<!-- 현재의 파이트에 ARTIST를 추가 할 수 있는지 체크. -->
+	<select id="checkFight" parameterClass="int" resultClass="int">
+		SELECT 
+	    count(a.video_sequence) as result
+	    FROM ARTIST a, FIGHT f
+	    WHERE  (a.fightno like f.fightno) AND (#value# like a.fightNo)
+
+	</select>
+	
+	<!-- fight 장르별 목록수 --> 
+	<select id="fightCount" parameterClass="fight" resultClass="int">
+		SELECT count(distinct a.fightno)
+		FROM fight f,artist a
+		WHERE f.fightno like a.fightno
+		AND f.isactive = #isActive#
+		<dynamic  prepend="AND">
+			<isNotEmpty property="genreNo">
+			f.genreNo like #genreNo#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	
+	 <!-- 동영상에 대한 점수 매기기 -->
+	 <insert id="addArtistScore" parameterClass="artistScore">
+		INSERT INTO ARTIST_SCORE(FIGHTNO,JURORID,ARTISTID,SCORE,REG_DATE)
+		VALUES(#fightNo#,#jurorId#,#artistId#,#score#,sysdate)
+	</insert>
+	
+	<!-- 동영상에 대한 점수 가져오기 -->
+	<select id="getArtistScore" parameterClass="int" resultClass="artistScore" >
+		SELECT ac1.fightno, ac1.artistid,sum(ac1.score) as score, artist1.video_sequence
+		FROM artist_score ac1, artist artist1
+		WHERE ac1.fightno = #value#  
+		AND ac1.fightno = artist1.fightno AND ac1.artistid = artist1.userid
+		GROUP BY ac1.fightno, ac1.artistid, artist1.video_sequence
+    ORDER BY artist1.video_sequence
+	</select>
+	
+	
+	 <!-- 게시판 점수 초기값 설정하기  (FIGHT가 생성되면 자동 불르기)-->
+	<insert id="addFightComment" parameterClass="fightComment"> 
+		INSERT INTO FIGHTCOMMENT(FIGHTNO, USERID, BAD, REG_DATE, MOD_DATE)
+		VALUES(#fightNo#, #userId#, 0, SYSDATE,SYSDATE)
+	</insert>
+	
+	<!-- 게시판 업데이트  -->
+	<update id="updatefightComment" parameterClass="int">
+		UPDATE FIGHTCOMMENT
+		SET BAD = BAD+1, MOD_DATE = SYSDATE
+		WHERE FIGHTNO = #value#
+	</update>
+	
+	<!--  rank 5위의 hot한 그룹 가죠오기  -->
+	
+	<select id="getHotFight" resultClass="int">
+	
+		SELECT fightno
+		FROM (
+		SELECT MAX(bad) bad, fightno
+		FROM fightcomment
+		GROUP BY fightno
+		ORDER BY bad DESC
+		)
+		WHERE ROWNUM &lt; 6
+		
+	</select>
+	
+	
+	<!-- "대결상태를 가져옵니다."getFightState , parameterClass : Integer(fightno) -->
+	<select id="getFightState" parameterClass="int" resultClass="int">
+	SELECT
+		fight0.fightno
+	FROM FIGHT fight0, ARTIST artist1
+	WHERE (fight0.fightno = artist1.fightno)
+	<isNotEmpty prepend="AND" property="value" open="(" close=")">
+	artist1.fightno = #fightno#
+	</isNotEmpty> 
+	group by artist1.fightno 
+	having count(artist1.video_sequence) = 2
+	</select>
+	
+	
+	<!-- 게시판 추천(좋아요, 싫어요) 갯수 가져오기 -->
+	<!-- 
+	<select id="getFightComment" parameterClass="int" resultClass="int">
+	SELECT fightno,count(bad)
+	FROM fightcomment 
+	WHERE bad = 1
+	AND fightno = 131
+	GROUP BY fightno
+	</select>
+	 -->
+	 
+	
+</sqlMap>
+

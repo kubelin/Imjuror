@@ -1,0 +1,121 @@
+@charset "utf-8";
+a, p, h1, h2, h3, h4, h5, span, div	{
+	font-family: 'UnJamoDotumWeb';
+	text-decoration: none;
+}
+.ui-slider {
+	background: #f07673;
+}
+
+.ui-slider-range {
+	background: #87d1e7;
+}
+
+#hottest-compe {
+	padding-right: 3%;
+}
+
+#hottest-compe2 {
+	padding-left: 3%;
+}
+
+#vote-button {
+	margin-bottom: 5px;
+	padding: 8px 30px 2px 30px;
+}
+
+#get-fight-button {
+	font-size: 15px;
+	padding: 30px 30px 30px 30px;
+}
+
+#caption1 {
+	float: left;
+	width: 20px;
+	background-color: transparent;
+	border: none;
+	color: silver;
+}
+
+#caption2 {
+	float: right;
+	width: 20px;
+	background-color: transparent;
+	border: none;
+	color: silver;
+	text-align: right;
+}
+#ytPlayer	{
+	width: 100%;
+}
+a {
+	color: silver;
+}#d9dde1
+
+a:hover {
+	color: silver;
+	
+	text-decoration: none;
+}
+
+span	{
+	margin-left: 10px;
+	color: silver;
+}
+
+.fightTitle {
+	margin: 1% 5% 1% 5%;
+	padding: 5px 0 5px 20px;
+}
+#fightTitle	{
+	color: silver;
+	font-weight: bold;
+}
+
+.scoreBar {
+	margin-bottom: 5px;
+	padding: 5px 0px 5px 0;
+}
+
+.scoreBar .progress {
+	margin: 7px 0 0 0;
+}
+
+
+	.write-reply{margin:0;padding:0; width:320px; overflow:hidden;}
+	
+	.f-icon{
+		magin-top:5px;
+		width:30px;
+		height:30px;
+		display: inline-block;
+		background: url('../img/icons/f_i_button.gif');
+	}
+	
+	.f-icon:hover{
+		background: url('../img/icons/f_button.gif');
+	}
+	
+	.f-icon.active{
+		background: url('../img/icons/f_button.gif');
+	}
+	
+	.t-icon{
+		width:30px;
+		height:30px;
+		display: inline-block;
+		background: url('../img/icons/t_i_button.gif');
+	}
+	.t-icon:hover{
+		background: url('../img/icons/t_button.gif');
+	}
+	.t-icon.active{
+		background: url('../img/icons/t_button.gif');
+	}
+	
+	#artist1-title{
+		background-color:#f07673;
+	}
+	#artist2-title{
+		background-color:#87d1e7;
+	}

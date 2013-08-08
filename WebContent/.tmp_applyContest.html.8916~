@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/plugins/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/plugins/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css" href="css/plugins/docs.css">
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.21/themes/base/jquery-ui.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/upload/ui.theme.css" type="text/css" media="all" />
+
+	
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	$('#upload-insert').load('http://localhost:8080/IamJuror/upload.html');
+</script>
+</head>
+<body>
+<div class="container-fluid">
+	
+	<div class="span8" style="margin-top:0px; text-align:center;" align="center" >	
+			<div class="row-fluid well">
+				<table class="table table-striped table-bordered table-condensed" align="right">
+					<thead>
+						<tr>
+							<th>대결등록</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>제목</td>
+							<td><input type="text" class="input-xxlarge" placeholder="제목을 입력해 주세요"></td>
+						</tr>
+						<tr>
+							<td>설명</td>
+							<td><textarea class="input-xxlarge" id="textarea" rows="3" placeholder="영상 설명을 입력해 주세요"></textarea></td>
+						</tr>
+						<tr>
+							<td>카테고리</td>
+							<td><select id="select01">
+					                <option>something</option>
+					                <option>2</option>
+					                <option>3</option>
+					                <option>4</option>
+					                <option>5</option>
+					              </select>
+							</td>
+						</tr>
+						<tr>
+							<td >직접 업로드 하기</td>
+							<td><input type="text" id="targetFile" class="input-large uneditable-input" value="" > <button id="upload-video" type="submit" class="btn" style="margin-left:5px; margin-bottom:7px;" >직접업로드</button></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align:center;"><button type="submit" id="submit-btn" class="btn btn-primary btn-large disabled"><h3>대결 등록</h3></button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+</div>
+
+<div id = "upload-insert"></div>
+<!-- end of upload -->
+
+</html>

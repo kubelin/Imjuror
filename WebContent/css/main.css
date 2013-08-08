@@ -1,0 +1,214 @@
+@charset "utf-8";
+
+#body-container {
+	background: -webkit-gradient(radial, 137 847, 165, 831 -339, 399, from(#000000), to(#FFFFFF)) ;
+}
+
+a,p,h1,h2,h3,h4,h5,span,div {
+	font-family: 'UnJamoDotumWeb';
+	text-decoration: none;
+}
+
+#logout {
+	padding-left: 12px;
+}
+
+#logout	a {
+	color: orange;
+	font-size: larger;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 0 20px 0 20px;
+}
+
+td#logout:hover {
+	background-color: green;
+}
+
+#myInfo {
+	padding: 12px;
+}
+
+#hottestBar {
+	margin-bottom: 10px;
+}
+
+#hot-label {
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-topright: 75px;
+	-moz-border-radius-bottomleft: 75px;
+	-moz-border-radius-bottomright: 0px;
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-top-right-radius: 75px;
+	-webkit-border-bottom-left-radius: 75px;
+	-webkit-border-bottom-right-radius: 0px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 75px;
+	border-bottom-left-radius: 75px;
+	border-bottom-right-radius: 0px;
+}
+
+#famous-label {
+	-moz-border-radius-topleft: 75px;
+	-moz-border-radius-topright: 75px;
+	-moz-border-radius-bottomleft: 0px;
+	-moz-border-radius-bottomright: 0px;
+	-webkit-border-top-left-radius: 75px;
+	-webkit-border-top-right-radius: 75px;
+	-webkit-border-bottom-left-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	border-top-left-radius: 75px;
+	border-top-right-radius: 75px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+#hottest-div {
+	margin-top: 1%;
+}
+
+h2 {
+	text-align: center;
+}
+
+#famous-label {
+	margin: 0px 0 10px 0;
+	padding: 5px 0px 5px 0;
+}
+
+#main_title {
+	background-image: url('../img/blackceramic.jpg');
+	background-repeat: repeat;
+	padding-top: 10px;
+	text-align: center;
+}
+
+#main_title_name {
+	font-size: 350%;
+	text-decoration: none;
+	color: silver;
+	text-shadow: 6px 9px 4px #0c0470;
+}
+
+#ytPlayer {
+	width: 100%;
+}
+
+#left-sidebar {
+	margin-bottom: 10px;
+}
+
+.lead {
+	color: silver;
+}
+
+.comment {
+	padding: 8px 10px 8px 0px;
+	margin-bottom: 18px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: maroon;
+	border: 1px solid transparent;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #a47e3c;
+}
+
+#famous-comment {
+	padding: 0px;
+	margin: 0px;
+	width: 120px;
+	display: inline-block;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #eeeeee;
+	border: 1px solid transparent;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #000000;
+	font-size: 10px;
+}
+
+.hot-vote {
+	padding: 5px 10px 5px 10px;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: normal;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#face-link {
+	color: #8c1aff;
+	text-decoration: none;
+}
+
+#face-a {
+	text-decoration: none;
+}
+
+.apply-btn {
+	font-size: 200%;
+	margin-left: 8px;
+	margin-bottom: 10px;
+	margin-top: 2px;
+	width: 70%;
+}
+
+#vote1 {
+	float: left;
+	width: 80%;
+}
+
+#begin-famous {
+	margin-top: 1%;
+}
+
+#sub_content {
+	margin-bottom: 1%;
+	padding: 5px 0px 5px 0;
+}
+
+.comment {
+	color: silver;
+	text-align: center;
+}
+
+#sub_title {
+	padding-right: 120px;
+}
+
+#update-list {
+	padding: 0;
+}
+
+#main-list {
+	padding: 0 30px 0 30px;
+}
+
+.es-carousel-wrapper {
+	background: -webkit-gradient(radial, 137 847, 165, 831 -339, 399, from(#000000), to(#FFFFFF) );
+}
+
+.comment {
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomleft: 75px;
+	-moz-border-radius-bottomright: 75px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 75px;
+	-webkit-border-bottom-right-radius: 75px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 75px;
+	border-bottom-right-radius: 75px;
+}
+/* 로그인/로그아웃 */
+body.connected #login {display: none;}
+body.connected #logout {display: block;}
+body.not_authorized #login {display: block;}
+body.not_authorized #logout {display: none;}
+body.unknown #login {display: block;}
+body.unknown #logout {display: none;}

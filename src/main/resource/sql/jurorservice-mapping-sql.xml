@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+					PUBLIC "http://ibatis.apache.org/dtd/sql-map-2.dtd" 
+					"http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+					
+<!-- 	userservice-mapping-sql.xml : SQL 를 갖는MetaData  --> 
+ <sqlMap namespace="Juror">
+
+	<!-- typeAlias : FQCN alias -->
+	<typeAlias alias="juror" type="spring.service.domain.JurorVO"/>
+
+	<!--  명시적 결과 맵 사용  -->
+	<resultMap id="jurorSelectMap" class="juror">
+		<result property="name" column="NAME" jdbcType="VARCHAR"/>
+		<result property="nickName" column="NICKNAME" jdbcType="VARCHAR"/>
+		<result property="gender" column="GENDER" jdbcType="VARCHAR"/>
+		<result property="picture" column="PICTURE" jdbcType="VARCHAR"/>
+		<result property="record" column="RECORD" jdbcType="NUMBER"/>
+		<result property="userLevel" column="USERLEVEL" jdbcType="NUMBER"/>
+		<!--<result property="admin" column="ADMIN" jdbcType="VARCHAR"/>
+		<result property="userId" column="USERID" jdbcType="VARCHAR"/>
+		<result property="regDate" column="REG_DATE" jdbcType="DATE"/>
+		<result property="modDate" column="MOD_DATE" jdbcType="DATE"/>
+		<result property="link" column="LINK" jdbcType="VARCHAR"/>
+		<result property="video" column="VIDEO" jdbcType="VARCHAR"/>-->
+	</resultMap>
+	
+	<!-- INSERT 매핑구문에서 사용할 외부파라미터 매핑 -->
+	<parameterMap 	id="jurorInsertParameterMap" class="juror">
+		<parameter property="name" jdbcType="VARCHAR"/>
+		<parameter property="nickName" jdbcType="VARCHAR"/>
+		<parameter property="gender" jdbcType="VARCHAR"/>
+		<parameter property="picture" jdbcType="VARCHAR"/>
+		<parameter property="record" jdbcType="NUMBER"/>
+		<parameter property="userLevel" jdbcType="NUMBER"/>
+		<parameter property="admin" jdbcType="VARCHAR"/>
+		<parameter property="userId" jdbcType="VARCHAR"/>
+		<parameter property="regDate" jdbcType="DATE"/>
+		<parameter property="modDate" jdbcType="DATE"/>
+		<parameter property="link" jdbcType="VARCHAR"/>
+	</parameterMap>
+			
+	<!-- UPDATE 매핑구문에서 사용할 외부파라미터 매핑 -->
+	<parameterMap 	id="jurorUpdateParameterMap"	class="juror">
+		<parameter property="name" jdbcType="VARCHAR"/>
+		<parameter property="nickName" jdbcType="VARCHAR"/>
+		<parameter property="gender" jdbcType="VARCHAR"/>
+		<parameter property="picture" jdbcType="VARCHAR"/>
+		<parameter property="record" jdbcType="NUMBER"/>
+		<parameter property="userLevel" jdbcType="NUMBER"/>
+		<parameter property="admin" jdbcType="VARCHAR"/>
+		<parameter property="userId" jdbcType="VARHCAR"/>
+		<parameter property="regDate" jdbcType="DATE"/>
+		<parameter property="modDate" jdbcType="DATE"/>
+		<parameter property="link" jdbcType="VARCHAR"/>
+	</parameterMap>
+	<!-- 
+	<resultMap id="videoSelectMap" class="juror">
+		<result property="video" column="VIDEO" jdbcType="VARCHAR"/>
+	</resultMap>
+	 -->
+	 
+	<insert 	id="addJuror"		parameterClass="juror" >
+	 	INSERT
+		INTO JUROR(NAME,NICKNAME,GENDER, PICTURE,USERLEVEL,ADMIN,USERID,LINK, REG_DATE) 
+		VALUES(#name#,#nickName#,#gender#,#picture#,1,'0',#userId#,#link#,sysdate)
+	</insert>
+	 
+	 <update	id="updateJuror" 	parameterMap="jurorUpdateParameterMap" >
+	   	UPDATE POLY_USER
+	   	SET NAME=?, NICKNAME=?, GENDER=?, PICTURE=?, RECORDE=?, USERLEVEL=?, ADMIN=?,USERID=?, REG_DATE=?,MOD_DATE=?
+		WHERE USERID = ?
+	 </update>
+	 
+	 <delete	id="removeJuror" 	parameterClass="string" >
+	 	DELETE 
+		FROM JUROR 
+		WHERE userid = #value#
+	 </delete>
+	  	
+	 <select 	id="getJuror" 	parameterClass="string"	resultMap="jurorSelectMap">
+	 	SELECT 
+		j.USERID, j.NAME, j.NICKNAME, j.GENDER, j.PICTURE, j.USERLEVEL, j.RECORD
+		FROM JUROR j
+		WHERE j.userid like #value#
+	 </select>
+	 
+	<!--  <select id="getVideoList" resultMap="videoSelectMap">
+	 	SELECT
+		a.VIDEO
+		FROM JUROR j, ARTIST a
+		WHERE j.userid like '112221322233' 
+		AND j.userid = a.userid
+		
+	</select> -->
+		
+	<select 	id="getJurorList" resultMap="jurorSelectMap">
+	 	SELECT
+		*		
+		FROM JUROR
+	 </select>
+	 
+</sqlMap>

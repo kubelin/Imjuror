@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "http://ibatis.apache.org/dtd/sql-map-2.dtd"
+		"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+		
+<sqlMap namespace="Fight2">
+
+	<typeAlias alias="fight" 		type="spring.service.domain.FightVO" />
+	<typeAlias alias="artistScore" 	type="spring.service.domain.ArtistScoreVO" />
+	<typeAlias alias="artist" 		type="spring.service.domain.ArtistVO" />
+	<typeAlias alias="fightComment" type="spring.service.domain.FightCommentVO" />
+	<typeAlias alias="getFight" 	type="spring.service.domain.FightInfoVO" />
+	<typeAlias alias="fightParam"	type="spring.service.domain.FightParamVO"/>
+	<typeAlias alias="artistParam"	type="spring.service.domain.ArtistParamVO"/>
+	<typeAlias alias="artistJuror"	type="spring.service.domain.ArtistJurorVO"/>
+	<typeAlias alias="lastestFight" type="spring.service.domain.LastestFightVO"/>
+
+<!-- Fight는 Artist와 Juror이 조인되어야 하므로 Artist와 Fight를 함께 처리하자. -->
+
+	<!-- getFightList 용 -->
+	<resultMap id="fightSelectMap" class="fight">
+		<result property="fightNo"			column="FIGHTNO"		jdbcType="INTEGER" />
+		<result property="title"	    	column="TITLE"			jdbcType="VARCHAR" />
+		<result property="content"	    	column="CONTENT"		jdbcType="VARCHAR" />
+		<result property="genreNo"			column="GENRENO"		jdbcType="VARCHAR" />
+		<result property="startDate"		column="START_DATE"		jdbcType="DATE" />
+		<result property="endDate"			column="END_DATE"		jdbcType="DATE" />
+		<result property="regDate"			column="REG_DATE"		jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- getArtistJurorList용 -->
+	<resultMap id="artistJurorSelectMap" class="artistJuror" >
+		<result property="fightNo" 			column="FIGHTNO" 		jdbcType="INTEGER"/>
+		<result property="userId" 			column="USERID" 		jdbcType="VARCHAR"/>
+		<result property="video"			column="VIDEO"			jdbcType="VARCHAR"/>
+		<result property="artistComment" 	column="ARTIST_COMMENT" jdbcType="VARCHAR"/>
+		<result property="videoSequence" 	column="VIDEO_SEQUENCE" jdbcType="INTEGER"/>
+		<result property="battleResult" 	column="BATTLE_RESULT"	jdbcType="VARCHAR"/>
+		<result property="nickName" 		column="NICKNAME"		jdbcType="VARCHAR"/>
+		<result property="link" 			column="LINK" 			jdbcType="VARCHAR"/>
+	</resultMap>
+	 
+	 <!-- LastestFightList VO용 -->
+	 <resultMap  id="lastestFightSelectMap" class="lastestFight">
+		 <result property="fightNo" 		column="FIGHTNO" 		jdbcType="INTEGER"/>
+		 <result property="title" 			column="TITLE" 			jdbcType="VARCHAR"/>
+		 <result property="startDate" 		column="START_DATE" 	jdbcType="DATE"/>
+		 <result property="userId" 			column="USERID" 		jdbcType="VARCHAR"/>
+		 <result property="name" 			column="NAME" 			jdbcType="VARCHAR"/>
+		 <result property="link" 			column="LINK" 			jdbcType="VARCHAR"/>
+	 </resultMap>
+	 
+	 
+	<!-- FIGHT값을 생성하고 PK값을 리턴합니다.  -->
+	<insert id="addFight" parameterClass="fight">
+		<selectKey resultClass="int" type="pre" keyProperty="fightNo">
+			SELECT FIGHT_SEQ.NextVal as fightNo from DUAL
+		</selectKey>	
+		INSERT INTO FIGHT(FIGHTNO,TITLE,GENRENO,CONTENT,fightDate)
+		VALUES(#fightNo#,#title#,#genreNo#,#content#,sysdate)
+	</insert>
+	
+	<insert id="addArtist" parameterClass="artist">
+		INSERT INTO 
+		ARTIST(FIGHTNO, USERID, VIDEO, ARTISTCOMMENT, VIDEO_SEQUENCE)
+		VALUES(#fightNo#, #userId#, #video#, #artistComment#, #videoSequence#)
+	</insert>
+	
+	<!-- 현재의 파이트에 ARTIST를 추가 할 수 있는지 체크. -->
+	<select id="checkFight" parameterClass="int" resultClass="int">
+		SELECT
+		fightno
+		FROM ARTIST
+		<dynamic prepend="WHERE" >
+			<isNotEmpty prepend="AND">
+			 fightno = #value#
+			</isNotEmpty>
+		</dynamic>
+		GROUP BY fightno
+		having COUNT(fightno) = 2
+	</select>
+	
+	<!-- fight 목록수 --> 
+	<select id="fightCount" parameterClass="string" resultClass="int">
+		SELECT count(distinct a.fightno)
+		FROM fight f,artist a
+		WHERE f.fightno like a.fightno
+		<![CDATA[ 
+		AND sysdate < f.enddate
+		]]>	
+		<dynamic prepend="AND">
+			<isNotEmpty property="value">
+			f.genreNo like #value#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	
+	<!-- 우리는 이 나눠진 값들을 통해서 Controller단에서 조합하겠습니다. -->
+	<!-- getFightList parameter : pageNumber-->
+	<select id="getFightList"  parameterClass="fightParam" resultMap="fightSelectMap" >
+	  SELECT /*+FIRST_ROWS(5)*/
+			FLESH_TAB.fightNo, FLESH_TAB.title, FLESH_TAB.content, gr.genre_name as genreNo,
+		 	FLESH_TAB.start_Date,FLESH_TAB.end_Date,FLESH_TAB.REG_DATE
+	    FROM ( 
+	    		SELECT /*+INDEX_ASC(FIGHT XPKFIGHT)*/
+	                   ROWNUM AS ROW_NUM, ROWID AS ROW_ID
+	            FROM FIGHT
+	            WHERE (ROWNUM &lt; #pageNo# * 5 + 1)
+	            <isNotEmpty prepend="AND" property="genreNo">
+	            	(genreNo = #genreNo#)
+	            </isNotEmpty>
+				AND	(isActive = #isActive#)
+	            ) BONE_TAB, GENRE gr, FIGHT FLESH_TAB
+	   	 
+	   	WHERE   (BONE_TAB.ROW_ID   = FLESH_TAB.ROWID) AND
+              (BONE_TAB.ROW_NUM &gt; ( #pageNo# - 1 ) * 5) AND
+              (FLESH_TAB.genreNo = gr.genreNo)
+	</select>
+	
+	
+	<!-- getArtistJurorList parameter : fightno & video_sequence-->
+	<select id="getArtistJurorList" parameterClass="artistParam" resultMap="artistJurorSelectMap">
+	SELECT
+		artist1.fightNo, artist1.userid, artist1.video, artist1.artist_comment, 
+		artist1.video_sequence, artist1.battle_result,
+		juror1.nickName, juror1.link
+	FROM ARTIST artist1, JUROR juror1
+	<dynamic prepend="WHERE" >
+	<iterate property="fightNos" prepend="AND" open=" artist1.fightno IN (" close=")" conjunction=",">
+		#fightNos[]#
+	</iterate>
+	<isNotEmpty prepend="AND" property="videoSequence" open=" artist1.video_sequence = " close="">
+		#videoSequence#
+	</isNotEmpty>
+	</dynamic>
+	AND (artist1.userid = juror1.userid)
+	ORDER BY artist1.fightno
+	</select>
+	<!--  -->
+	
+	<select id="getFight" parameterClass="int" resultMap="fightSelectMap">
+	SELECT 
+	fight0.fightNo, fight0.title, fight0.content, gr.genre_name as genreNo,
+		 	fight0.start_Date,fight0.end_Date,fight0.reg_date
+	FROM FIGHT fight0, GENRE gr
+	WHERE (gr.genreNo = fight0.genreNo) AND	(fightno = #value#) 
+	</select>
+	
+	<!-- getPopularFightList : genre -->
+	<select id="getPopularFightNos" parameterClass="string" resultClass="int">
+	SELECT fightno
+  	FROM (	SELECT /*+ INDESC_ASC(XPKFIGHT)*/ 
+  				fight0.fightno,
+          		RANK() OVER(ORDER BY SUM(ac1.score) DESC) AS RANK1
+			FROM ARTIST_SCORE ac1, FIGHT fight0
+			WHERE (ac1.fightno = fight0.fightno) 
+			<isNotEmpty property="value" prepend="AND">
+			(fight0.genreNo = #value#)
+			</isNotEmpty>
+			GROUP BY ac1.fightno,fight0.fightno) BASE_TAB
+	WHERE BASE_TAB.RANK1 &lt; 6
+	</select>
+		
+		
+	<!-- getFightList_useFightNos -->
+	<select id="getFightListUseFightNos" parameterClass="artistParam" resultMap="fightSelectMap">
+	SELECT
+	fight0.fightNo, fight0.title, fight0.content, gr.genre_name as genreNo,
+		 	fight0.start_Date,fight0.end_Date,fight0.reg_date
+	FROM FIGHT fight0, GENRE gr
+	WHERE
+	fight0.genreNo = gr.genreNo 
+	<iterate property="fightNos" prepend="AND" conjunction="," open=" fight0.fightno IN (" close=")">
+	#fightNos[]#
+	</iterate>
+	
+	</select>	
+	
+	<select id="getLastestFightList" parameterClass="fightParam" resultMap="lastestFightSelectMap">
+	SELECT /*+FIRST_ROWS(5)*/
+			FLESH_TAB.fightNo, FLESH_TAB.title,	FLESH_TAB.start_Date, artist1.userId, juror1.name,juror1.link
+			
+	    FROM ( 
+	    		SELECT /*+INDEX_DESC(FIGHT XPKFIGHT)*/
+	                   ROWNUM AS ROW_NUM, ROWID AS ROW_ID
+	            FROM FIGHT
+	            WHERE (ROWNUM &lt; 6)
+	            <isNotEmpty property="genreNo" prepend="AND">
+	            genreNo = #genreNo#
+	            </isNotEmpty>
+	            <isNotEmpty property="isActive" prepend="AND">
+	            isActive = #isActive#
+	            </isNotEmpty>
+	            ) BONE_TAB, GENRE gr, FIGHT FLESH_TAB, ARTIST artist1,JUROR juror1
+	   	WHERE   (BONE_TAB.ROW_ID   = FLESH_TAB.ROWID) AND (artist1.video_sequence = 1)AND
+              (FLESH_TAB.genreNo = gr.genreNo) AND (FLESH_TAB.fightno = artist1.fightno) AND (artist1.userid = juror1.userid)
+      ORDER BY fightno DESC
+	</select>
+	
+	
+</sqlMap>
+

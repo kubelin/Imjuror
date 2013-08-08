@@ -1,0 +1,110 @@
+﻿@charset "utf-8";
+
+*{margin:0;padding:0;}
+body{font-family:"맑은 고딕";}
+#wrap{
+	width:1000px;
+	min-height:660px;
+	margin:50px;
+	
+	margin-right:auto;
+	margin-left:auto;
+	
+	padding-top:30px;
+	background-color:#999;
+	
+	
+}
+#outer{
+	width:700px;
+	height:520px;
+	margin-right:auto;
+	margin-left:auto;
+	
+	padding:15px;
+	
+	background-color:#333;
+}
+#header{
+    clear:both;
+	margin-right:auto;
+	margin-left:auto;
+		
+	padding:15px;
+	width:auto;
+	height:340px;
+
+
+
+	background-color:#FFFFFF;
+	border:1px solid #999;
+	border-radius:5px;
+
+}
+#footer_off{
+	clear:both;
+	padding:15px;
+	margin-top:15px;
+	width:auto;
+	height:180px;
+	
+	background-color:#FFFFFF;
+	border:1px solid #999;
+	border-radius:5px;
+	
+}
+
+.user_photo_area{
+    float:left;
+	margin-top:15px;
+	background-color:#B0C4DE;
+	width:180px;
+	height:220px;
+
+}
+.user_photo{
+	margin-left:30px;
+	margin-top:50px;
+}
+
+.user_content {
+	float:left;
+	margin:15px;
+	width:200px;
+}
+
+ {
+	float:left;
+
+}
+.user_content2 {
+	float:left;
+	margin:15px;
+	width:200px;
+}
+
+
+.print_user_uploaded{
+
+	text-align:center;
+	font-size:0.9em;
+	border:1px solid Red;
+	border-collapse:collapse;
+	background-color:#999;
+	width:100%;
+}
+#sub_title01{
+	font-size:20px;
+}
+
+.user_uploaded_one{
+	width:150px;	
+	height:100px;
+}
+
+#jw-carousel{
+
+	float:left;
+	font-size:0.8em;
+	color:#ffffff;
+}

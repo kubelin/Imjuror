@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Hall of Fame</title>
+		<link rel="stylesheet" href="css/hall_of_fame.css" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="cs
+		s/JSlider.css" />
+		<script src="js/plugins/jquery-1.7.2.min.js"></script>
+		<script language="javascript" type="text/javascript" src="js/JSlidernews/jquery.easing.js"></script>
+		<script language="javascript" type="text/javascript" src="js/JSlidernews/script.js"></script>
+		<script src="js/hall_of_fame.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function(){	
+				// buttons for next and previous item						 
+				var buttons = { previous:$('#jslidernews1 .button-previous') ,
+								next:$('#jslidernews1 .button-next') };			
+				 $('#jslidernews1').lofJSidernews( { interval : 4000,
+													direction		: 'opacitys',	
+													easing			: 'easeInOutExpo',
+													duration		: 1200,
+													auto		 	: true,
+													maxItemDisplay  : 5,
+													navPosition     : 'horizontal', // horizontal
+													navigatorHeight : 164,
+													navigatorWidth  : 120,
+													mainWidth		: 900,
+													buttons			: buttons } );	
+			});
+		</script>
+		
+		<style>
+			#jslidernews1{
+				margin:0;margin-left:auto;margin-right:auto; width:900px;height:600px;
+			}
+			.main-slider-content{
+				width:900px; height:400px;
+			}
+			.navigator-content{width:655px;}
+			.navigator-wrapper{width:660px;}
+		
+		</style>
+	</head>
+	<body>
+	<div id="wrapper"></div>
+	
+	<div id="jslidernews1" class="lof-slidecontent">
+	<div class="preload"><div></div></div>
+    		 <!-- MAIN CONTENT --> 
+              <div class="main-slider-content">
+                <ul class="sliders-wrap-inner">
+                    
+                </ul>  	
+            </div>
+ 		   <!-- END MAIN CONTENT --> 
+           <!-- NAVIGATOR -->
+           	<div class="navigator-content">
+                  <div class="button-next">Next</div>
+                  <div class="navigator-wrapper">
+                        <ul class="navigator-wrap-inner">
+                                		
+                        </ul>
+                  </div>
+                  <div  class="button-previous">Previous</div>
+             </div> 
+          <!----------------- END OF NAVIGATOR --------------------->
+          <!-- BUTTON PLAY-STOP -->
+          <div class="button-control"><span></span></div>
+           <!-- END OF BUTTON PLAY-STOP -->
+           
+          <div id="slider">
+			<div class="title-area"><p class="title">이달의<br/> 장르별 TOP2</p></div>
+		  </div>
+		  
+	 </div> 
+	 <div class="rank-content-wrap"><p class="title">RANK</p>
+	 	<div class="rank-area">
+	 		<!-- 순위 총 11개행 1~10위+header -->
+	 		<table class="rank-area">
+	 			<tr><th>순위</th><th></th><th>닉네임</th><th>장르</th><th>레벨(전적)</th></tr>
+				
+	 		</table>
+	 	</div>
+	 
+	 </div>
+	 <div class="make-space" style="height:30px;"></div>
+ 	 
+	 </body>
+</html> 
+

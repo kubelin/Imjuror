@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/plugins/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/plugins/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css" href="css/plugins/docs.css">
+<link rel="stylesheet" type="text/css" href="css/plugins/elastislide.css">
+<link href='http://api.mobilis.co.kr/webfonts/css/?fontface=UnJamoDotumWeb' rel='stylesheet' type='text/css' />
+</head>
+
+<!-- 페이스북 초기화 -->
+<body class="unknown not_authorized">
+<div id="fb-root"></div>
+<script src="js/facebook/config.js"></script>	
+	<div id="main-container" class="container-fluid">
+		<header class="jumbotron subhead" id="main_title">
+			<div id="main_title">
+				<a id="main_title_name" href="http://localhost:8080/IamJuror/main.html">당신도 심사위원</a>
+				<p class="lead">Who's Next?</p>
+			</div>
+			
+			<div class="subnav">
+				<ul id="top-navi" class="nav nav-pills top-font">
+					<li id="nav-main"><a href="#">메인</a></li>
+					<li id="nav-overrall"><a href="#">전체보기</a></li>
+					<li id="nav-rank"><a href="#">명예의전당</a></li>
+					<li id="person-info"><a href="#">개인정보</a></li>
+				</ul>
+			</div>
+		</header> 
+	
+		<div id="body-container" class="row-fluid">
+			
+	        <div class="span2" id="left_sidebar">
+	        	<div class="row-fluid">
+		        	<div class="span12">
+		        		<table class="table">
+							<tr><td id='myInfo'><a href="#" onclick="login()" id="login"><img src="img/fb_login_icon.gif" /></a></td></tr>
+							<tr><td id="logout"><a onclick="logout()">로그아웃</a></td></tr>
+		        		</table>
+					</div>
+					<div id="left-sidebar" class="well sidebar-nav">
+						<ul id="main-list" class="nav nav-list">
+							<li class="nav-header">장르</li>
+							<li class="active contestList" id="selectAll"><a href="#">모든장르</a></li>
+							<li class="contestList" id="1"><a href="#">장르1</a></li>
+							<li class="contestList" id="2"><a href="#">장르2</a></li>
+							<li class="contestList" id="3"><a href="#">장르3</a></li>
+							<li class="contestList" id="4"><a href="#">장르4</a></li>
+						</ul>
+					</div>
+
+				</div>
+				
+				<div class="well sidebar-nav">
+					<ul id="update-list" class="nav nav-list"></ul>
+				</div> 
+	        </div>
+			
+				 <div id="main-body" class="span10">
+				 	
+					<div class="row-fluid show-grid">
+						<div class="span12">
+							<div id="hottestBar">
+								<span id='who-label'class="label label-important">who's better?</span>
+								<div id='hot-label'class="label"><h2> Hottest Competiton </h2></div>
+							</div>
+						</div>
+					</div> 
+					<div id="main-div" class="row-fluid show-grid">
+				 		<div id="hottest-div" class="span12 show-grid">
+						    <div id="hottest-compe" class="span5" ><div id="compe1-comment" class="comment"></div></div>
+							<div class="span2">
+								<div class="row-fluid">
+									<div class="span2"></div>
+									<div class="span8" id="main-vs"><a href="#" id="vote1" class="btn btn-danger hot-large" >투표하기</a></div>
+									<div class="span2"></div>
+								</div>	
+							</div>
+						  	<div id="hottest-compe2"class="span5" ><div id="compe2-comment" class="comment"></div></div>
+						</div>
+					</div>
+					
+					<div id="begin-famous" class="row-fluid show-grid" >
+					 	<div class="span12" id="sub_contents">
+					 		<div id="famous-label" class="label"><h3 id="galleryTitle" align="center">모든 장르의 TOP 5</h3></div>
+							<div id="carousel" class="es-carousel-wrapper"><div class="es-carousel"><ul id="thumb-ul"></ul></div></div>
+						</div>
+					</div>
+		 	</div>
+		</div>
+		
+   </div>
+	
+<script src="js/plugins/jquery-1.7.2.min.js"></script>
+<script src="js/plugins/jquery-ui-1.8.18.min.js"></script>
+<script src="js/plugins/jquery.elastislide.js"></script>
+<script src="js/plugins/jquery.cookie.js"></script>
+<script src="js/plugins/bootstrap.min.js" ></script>
+<script src="js/plugins/swfobject.js"></script>
+<script src="js/facebook/userStatus.js"></script>
+<script src="js/facebook/sendUserData.js"></script>
+<script src="js/main.js"></script>
+<script src="js/timer.js"></script>
+</body>
+</html>
